@@ -3,8 +3,8 @@ It validates the fields of a CSV input file, given some previous information abo
 
 
 #### Requirements
--JavaSE-1.7 or greater
--libcommons-csv-java
+- JavaSE-1.7 or greater
+- libcommons-csv-java
 
 #### Licence
 
