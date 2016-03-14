@@ -4,7 +4,7 @@ It validates the fields of a CSV input file, given some previous information abo
 
 #### Requirements
 - JavaSE-1.7 or greater
-- libcommons-csv-java
+- libcommons-csv-java-1.2 (Jar included in this project to keep it easy)
 
 #### Licence
 
