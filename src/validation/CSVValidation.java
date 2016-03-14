@@ -13,22 +13,26 @@ public class CSVValidation {
 	public static int NUM_COLUMNS = 15;
 	public static int NUM_ROWS = 50;
 	public static String typesOfWorkingClass[] = { "State-gov", "Local-gov", "Private", "Self-emp-not-inc", "Self-emp-inc",
-			"Federal-gov" };
+			"Federal-gov", "Never-worked", "Without-pay" };
 	public static String typesOfEducation[] = { "10th", "11th", "1st-4th", "5th-6th", "7th-8th", "9th", "Assoc-acdm",
 			"Assoc-voc", "Bachelors", "Doctorate", "HS-grad", "Masters", "Preschool", "Prof-school", "Some-college" };
 	public static String typesOfMaritalStatus[] = { "Never-married", "Married-civ-spouse", "Divorced",
-			"Married-spouse-absent", "Separated", "Married-AF-spouse", "Widowed" };
-	public static String typesOfOccupations[] = { "Adm-clerical", "Exec-managerial", "Handlers-cleaners",
+			"Married-spouse", "absent", "Separated", "Married-AF-spouse", "Widowed" };
+	public static String typesOfOccupations[] = { "Adm-clerical", "Exec-managerial", "Handlers", "cleaners",
 			"Prof-specialty", "Other-service", "Sales", "Craft-repair", "Transport-moving", "Farming-fishing",
-			"Machine-op-inspct", "Tech-support", "Protective-serv" };
+			"Machine-op-inspct", "Tech-support", "Protective-serv", "Armed-Forces" };
 	public static String typesOfRelationships[] = { "Not-in-family", "Husband", "Wife", "Own-child", "Unmarried",
 			"Other-relative" };
 	public static String typesOfRaces[] = { "White", "Black", "Asian-Pac-Islander", "Amer-Indian-Eskimo",
 			"Other" };
 	public static String typesOfSexes[] = { "Male", "Female" };
-	public static String typesOfNatianalities[] = { "United-States", "Cuba", "Jamaica", "India", "Mexico",
-			"Puerto-Rico", "Honduras", "England", "Canada", "Germany", "Iran", "Philippines", "Italy",
-			"Poland", "Columbia" };
+	public static String typesOfNatianalities[] = { "United-States", "Cambodia", "England", "Puerto-Rico",
+	   "Canada", "Germany", "Outlying-US", "India", "Japan",
+	   "Greece", "South", "China", "Cuba", "Iran", "Honduras", "Philippines", "Italy",
+	   "Poland", "Jamaica", "Vietnam", "Mexico", "Portugal", "Ireland", "France",
+	   "Dominican-Republic", "Laos", "Ecuador", "Taiwan", "Haiti", "Columbia",
+	   "Hungary", "Guatemala", "Nicaragua", "Scotland", "Thailand", "Yugoslavia",
+	   "El-Salvador", "Trinadad&Tobago", "Peru", "Hong", "Holand-Netherlands" };
 	public static String classes[] = { "<=50K", ">50K" };
 
 	public static void main(String[] args) {
