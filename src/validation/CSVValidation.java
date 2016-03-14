@@ -12,28 +12,28 @@ import org.apache.commons.csv.CSVRecord;
 public class CSVValidation {
 	public static int NUM_COLUMNS = 15;
 	public static int NUM_ROWS = 50;
-	public static String typesOfWorkingClass[] = { "State-gov", "Local-gov", "Private", "Self-emp-inc", " Self-emp-inc",
+	public static String typesOfWorkingClass[] = { "State-gov", "Local-gov", "Private", "Self-emp-not-inc", "Self-emp-inc",
 			"Federal-gov" };
 	public static String typesOfEducation[] = { "10th", "11th", "1st-4th", "5th-6th", "7th-8th", "9th", "Assoc-acdm",
 			"Assoc-voc", "Bachelors", "Doctorate", "HS-grad", "Masters", "Preschool", "Prof-school", "Some-college" };
-	public static String typesOfMaritalStatus[] = { " Never-married", " Married-civ-spouse", " Divorced",
-			" Married-spouse-absent", " Separated", " Married-AF-spouse", " Widowed" };
-	public static String typesOfOccupations[] = { " Adm-clerical", " Exec-managerial", " Handlers-cleaners",
-			" Prof-specialty", " Other-service", " Sales", " Craft-repair", " Transport-moving", " Farming-fishing",
-			" Machine-op-inspct", " Tech-support", " Protective-serv" };
-	public static String typesOfRelationships[] = { " Not-in-family", " Husband", " Wife", " Own-child", " Unmarried",
-			" Other-relative" };
-	public static String typesOfRaces[] = { " White", " Black", " Asian-Pac-Islander", " Amer-Indian-Eskimo",
-			" Other" };
+	public static String typesOfMaritalStatus[] = { "Never-married", "Married-civ-spouse", "Divorced",
+			"Married-spouse-absent", "Separated", "Married-AF-spouse", "Widowed" };
+	public static String typesOfOccupations[] = { "Adm-clerical", "Exec-managerial", "Handlers-cleaners",
+			"Prof-specialty", "Other-service", "Sales", "Craft-repair", "Transport-moving", "Farming-fishing",
+			"Machine-op-inspct", "Tech-support", "Protective-serv" };
+	public static String typesOfRelationships[] = { "Not-in-family", "Husband", "Wife", "Own-child", "Unmarried",
+			"Other-relative" };
+	public static String typesOfRaces[] = { "White", "Black", "Asian-Pac-Islander", "Amer-Indian-Eskimo",
+			"Other" };
 	public static String typesOfSexes[] = { "Male", "Female" };
-	public static String typesOfNatianalities[] = { " United-States", " Cuba", " Jamaica", " India", " Mexico",
-			" Puerto-Rico", " Honduras", " England", " Canada", " Germany", " Iran", " Philippines", " Italy",
-			" Poland", " Columbia" };
-	public static String classes[] = { "<=50K", " >50K" };
+	public static String typesOfNatianalities[] = { "United-States", "Cuba", "Jamaica", "India", "Mexico",
+			"Puerto-Rico", "Honduras", "England", "Canada", "Germany", "Iran", "Philippines", "Italy",
+			"Poland", "Columbia" };
+	public static String classes[] = { "<=50K", ">50K" };
 
 	public static void main(String[] args) {
 		try {
-			FileReader in = new FileReader("C:\\Users\\oscar\\field-validator\\income.csv");
+			FileReader in = new FileReader("income.csv");
 			CSVParser parser = new CSVParser(in, CSVFormat.EXCEL);
 			ColumnInfo informationOfColumns[] = new ColumnInfo[NUM_COLUMNS];
 			// Tipos de validadores para las columnInfo
@@ -60,17 +60,21 @@ public class CSVValidation {
 
 			// validando las columnas
 			int j = 0;
+			int errorCount = 0;
 			for (CSVRecord csvRecord : values) {
-				boolean validRow = true;
 				for (int i = 0; i < NUM_COLUMNS; i++) {
-					validRow = informationOfColumns[i].validate(csvRecord.get(i)) && validRow;
-				}
-				if (!validRow) {
-					System.out.println("Error en la fila" + (j + 1));
-				}
+				    if (j == 0) break;
+				    String value = csvRecord.get(i).trim();
+					if (!informationOfColumns[i].validate(value)) {
+					   System.out.printf("Error %d %d: %s", j+1, i+1, value);
+					   System.out.println();
+					   errorCount++;
+					}
+                }
 				j++;
-				System.out.println();
 			}
+			System.out.println("Error count: " + errorCount);
+			parser.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
