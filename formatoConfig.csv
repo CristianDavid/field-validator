@@ -1,0 +1,5 @@
+nombreColumna1,tipo1,info para validador
+nombreColumna2,tipo2,info para validador
+Edad,numerico,"0, 99"
+Estados,nominal,"Jalisco, Aguascalientes"
+correo,regex,*@.*
