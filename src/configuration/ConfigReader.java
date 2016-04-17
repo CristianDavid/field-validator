@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import validation.ColumnInfo;
+import validation.FieldValidator;
+import validation.NominalFieldValidator;
+import validation.NumericFieldValidator;
+// import validation.RegexValidator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -17,24 +21,33 @@ public class ConfigReader {
       columns = new ArrayList<ColumnInfo>();
       try (FileReader inputFile = new FileReader(filename);
            CSVParser  parser    = new CSVParser(inputFile, CSVFormat.EXCEL)) {
-         List<CSVRecord> records = parser.getRecords();
-         ColumnInfo column = null;
-         String columnName = null;
-         String columnType = null;
+         List<CSVRecord> records  = parser.getRecords();
+         FieldValidator validator = null;
+         String columnName        = null;
+         String columnType        = null;
+         String validatorInfo     = null;
          for (CSVRecord record : records) {
-            columnName = record.get(0).trim();
-            columnType = record.get(1).trim();
+            columnName    = record.get(0).trim();
+            columnType    = record.get(1).trim();
+            validatorInfo = record.get(2).trim();
             switch (columnType) {
                case "numerico":
+                  String[] limits = validatorInfo.split(",");
+                  int min         = Integer.parseInt(limits[0]);
+                  int max         = Integer.parseInt(limits[1]);
+                  validator       = new NumericFieldValidator(min, max);
                   break;
                case "nominal":
+                  String[] fields = validatorInfo.split(",");
+                  validator       = new NominalFieldValidator(fields);
                   break;
                case "regex":
+                  //validator = new RegexValidator(validadorInfo);
                   break;
                default:
                   throw new IOException("Column type not supported.");
             }
-            columns.add(column);
+            columns.add(new ColumnInfo(columnName, validator));
          }
       } catch (FileNotFoundException e) {
          e.printStackTrace();
