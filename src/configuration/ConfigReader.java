@@ -10,7 +10,7 @@ import validation.ColumnInfo;
 import validation.FieldValidator;
 import validation.NominalFieldValidator;
 import validation.NumericFieldValidator;
-// import validation.RegexValidator;
+import validation.RegexValidator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -42,7 +42,7 @@ public class ConfigReader {
                   validator       = new NominalFieldValidator(fields);
                   break;
                case "regex":
-                  //validator = new RegexValidator(validadorInfo);
+                  validator = new RegexValidator(validatorInfo);
                   break;
                default:
                   throw new IOException("Column type not supported.");
