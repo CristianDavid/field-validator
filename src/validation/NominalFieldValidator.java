@@ -16,8 +16,6 @@ public class NominalFieldValidator implements FieldValidator {
             }
          });
       this.values.addAll(Arrays.asList(values));
-      this.values.add("");
-      this.values.add("?");
    }
    
    @Override
