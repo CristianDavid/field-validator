@@ -10,6 +10,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import configuration.ConfigReader;
+import reports.Stats;
+import reports.Correlation;
 
 public class CSVValidation {
 	
@@ -17,7 +19,7 @@ public class CSVValidation {
 		try (FileReader in     = new FileReader("income.csv");
 		     CSVParser  parser = new CSVParser(in, CSVFormat.EXCEL);) {
 			ConfigReader config = new ConfigReader("config.csv");
-			ColumnInfo[] informationOfColumns = config.getColumns();
+			ColumnInfo[] columnsInfo = config.getColumns();
 			List<CSVRecord> values = parser.getRecords();
 			// validando las columnas
 			int errorCount = 0;
@@ -25,7 +27,7 @@ public class CSVValidation {
 			   CSVRecord csvRecord = values.get(i);
 			   for (int j = 0; j < csvRecord.size(); j++) {
 				    String value = csvRecord.get(j).trim();
-					if (!informationOfColumns[j].validate(value)) {
+					if (!columnsInfo[j].validate(value)) {
 					   System.out.printf("Error %d %d: %s", i+1, j+1, value);
 					   System.out.println();
 					   errorCount++;
@@ -33,7 +35,13 @@ public class CSVValidation {
                 }
 			}
 			System.out.println("Error count: " + errorCount);
-			parser.close();
+			
+			CSVRecord[] recordArray = values.toArray(new CSVRecord[0]);
+			//Stats       stats       = new Stats(columnsInfo, recordArray);
+			Correlation correlation = new Correlation(columnsInfo, recordArray);
+			correlation.writeToDisk();
+			// stats.writeToDisk();
+			
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
