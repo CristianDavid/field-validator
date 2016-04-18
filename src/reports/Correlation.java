@@ -12,7 +12,7 @@ import org.apache.commons.csv.CSVRecord;
 import validation.ColumnInfo;
 
 public class Correlation {
-   Correlation(ColumnInfo[] info, CSVRecord[] records) {
+   public Correlation(ColumnInfo[] info, CSVRecord[] records) {
       attributeA  = new ArrayList<String>();
       attributeB  = new ArrayList<String>();
       correlation = new ArrayList<Double>();
@@ -48,7 +48,7 @@ public class Correlation {
       }
    }
    
-   void writeToDisk() {
+   public void writeToDisk() {
       try (PrintWriter outFile = new PrintWriter("correlation.csv");
             CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)) {
          printer.printRecord("Atributo A", "Atributo B", "Correlacion");
