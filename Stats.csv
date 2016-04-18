@@ -1,7 +1,7 @@
 Name,Max,Min,Mode,Mean,Std Deviation
-age,90.0,17.0,0.0,36.0,13.784356153853222
+age,90.0,17.0,31.0,36.0,13.784356153853222
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 State-gov,13
@@ -15,11 +15,11 @@ ERRORS
 Name,Frequency
 "?",16
 
-"-",-,-
+"---",---,---
 Name,Max,Min,Mode,Mean,Std Deviation
-fnlwgt,635913.0,24215.0,0.0,191030.0,109760.8081221275
+fnlwgt,635913.0,24215.0,24215.0,191030.0,109760.8081221275
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 Bachelors,41
@@ -41,11 +41,11 @@ Preschool,1
 ERRORS
 Name,Frequency
 
-"-",-,-
+"---",---,---
 Name,Max,Min,Mode,Mean,Std Deviation
-education-num,15.0,0.0,0.0,9.0,3.7378217554358897
+education-num,15.0,0.0,9.0,9.0,3.7378217554358897
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 Never-married,78
@@ -60,7 +60,7 @@ Name,Frequency
 "?",7
 Married-spouse-absent,3
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 Adm-clerical,26
@@ -80,7 +80,7 @@ Name,Frequency
 Handlers-cleaners,11
 "?",14
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 Not-in-family,68
@@ -93,7 +93,7 @@ Other-relative,8
 ERRORS
 Name,Frequency
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 White,197
@@ -109,7 +109,7 @@ Blacky,2
 Whtie,1
 Blac,3
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 Male,163
@@ -119,19 +119,19 @@ ERRORS
 Name,Frequency
 Man,9
 
-"-",-,-
+"---",---,---
 Name,Max,Min,Mode,Mean,Std Deviation
 capital-gain,34095.0,0.0,0.0,628.0,3102.2774093394664
 
-"-",-,-
+"---",---,---
 Name,Max,Min,Mode,Mean,Std Deviation
 capital-loss,2206.0,0.0,0.0,131.0,476.72834998425975
 
-"-",-,-
+"---",---,---
 Name,Max,Min,Mode,Mean,Std Deviation
-hours-per-week,80.0,1.0,0.0,40.0,11.248739331417754
+hours-per-week,80.0,1.0,40.0,40.0,11.248739331417754
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 United-States,212
@@ -154,7 +154,7 @@ ERRORS
 Name,Frequency
 "?",12
 
-"-",-,-
+"---",---,---
 SUCCESSES
 Name,Frequency
 "<=50K",175
@@ -164,4 +164,4 @@ ERRORS
 Name,Frequency
 "",19
 
-"-",-,-
+"---",---,---
