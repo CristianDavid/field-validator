@@ -41,6 +41,9 @@ public class CSVValidation {
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
+		} catch (IndexOutOfBoundsException e) {
+		   e.printStackTrace();
+           System.err.println(e.getMessage());
 		}
 	}
 }

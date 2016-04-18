@@ -27,6 +27,10 @@ public class ConfigReader {
          String columnType        = null;
          String validatorInfo     = null;
          for (CSVRecord record : records) {
+            if (record.size() < 3) {
+               String msg = "Row has less than 3 columns!";
+               throw new IndexOutOfBoundsException(msg);
+            }
             columnName    = record.get(0).trim();
             columnType    = record.get(1).trim();
             validatorInfo = record.get(2).trim();
