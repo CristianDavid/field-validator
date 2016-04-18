@@ -10,7 +10,6 @@ race,nominal,"White,Black,Asian-Pac-Islander,Amer-Indian-Eskimo,Other"
 sex,regex,"Male|Female"
 capital-gain,numerico,"0,999999"
 capital-loss,numerico,"0,999999"
-hours-per-week,"0,168"
+hours-per-week,numerico,"0,168"
 native-country,nominal,"United-States,Cambodia,England,Puerto-Rico,Canada,Germany,Outlying-US,India,Japan,Greece,South,China,Cuba,Iran,Honduras,Philippines,Italy,Poland,Jamaica,Vietnam,Mexico,Portugal,Ireland,France,Dominican-Republic,Laos,Ecuador,Taiwan, Haiti,Columbia,Hungary,Guatemala,Nicaragua,Scotland,Thailand,Yugoslavia,El-Salvador,Trinadad&Tobago,Peru,Hong,Holand-Netherlands"
 class,nominal,"<=50K,>50K"
-
