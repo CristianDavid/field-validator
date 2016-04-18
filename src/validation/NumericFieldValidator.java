@@ -15,7 +15,7 @@ public class NumericFieldValidator implements FieldValidator {
          int val = Integer.parseInt(value);
          return min <= val && val <= max;
       } catch (NumberFormatException e) {
-         if (value.equals("?") || value.equals("")) return true;
+         if (value.equals("?") || value.equals("")) return false;
          return false;
       }
    }
