@@ -14,25 +14,23 @@ import configuration.ConfigReader;
 public class CSVValidation {
 	
 	public static void main(String[] args) {
-		try (FileReader in = new FileReader("income.csv");
-		     CSVParser parser = new CSVParser(in, CSVFormat.EXCEL);) {
+		try (FileReader in     = new FileReader("income.csv");
+		     CSVParser  parser = new CSVParser(in, CSVFormat.EXCEL);) {
 			ConfigReader config = new ConfigReader("config.csv");
 			ColumnInfo[] informationOfColumns = config.getColumns();
 			List<CSVRecord> values = parser.getRecords();
 			// validando las columnas
-			int j = 0;
 			int errorCount = 0;
-			for (CSVRecord csvRecord : values) {
-				for (int i = 0; i < csvRecord.size(); i++) {
-				    if (j == 0) break;
-				    String value = csvRecord.get(i).trim();
-					if (!informationOfColumns[i].validate(value)) {
-					   System.out.printf("Error %d %d: %s", j+1, i+1, value);
+			for (int i = 1; i < values.size(); i++) {
+			   CSVRecord csvRecord = values.get(i);
+			   for (int j = 0; j < csvRecord.size(); j++) {
+				    String value = csvRecord.get(j).trim();
+					if (!informationOfColumns[j].validate(value)) {
+					   System.out.printf("Error %d %d: %s", i+1, j+1, value);
 					   System.out.println();
 					   errorCount++;
 					}
                 }
-				j++;
 			}
 			System.out.println("Error count: " + errorCount);
 			parser.close();
