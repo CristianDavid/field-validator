@@ -1,6 +1,5 @@
 package reports;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,8 +12,6 @@ import org.apache.commons.csv.CSVRecord;
 import validation.ColumnInfo;
 
 public class Stats {
-
-	private static final String NEW_LINE_SEPARATOR = "\n";
 	private static final Object [] FILE_HEADER_NUMERIC = {"Name","Max","Min","Mode","Mean","Std Deviation"};
 	private static final Object [] FILE_HEADER_NOMINAL = {"Name","Frequency"};
 	public static final String FILENAME = "Stats.csv";
