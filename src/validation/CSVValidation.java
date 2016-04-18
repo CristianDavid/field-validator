@@ -37,10 +37,10 @@ public class CSVValidation {
 			System.out.println("Error count: " + errorCount);
 			
 			CSVRecord[] recordArray = values.toArray(new CSVRecord[0]);
-			//Stats       stats       = new Stats(columnsInfo, recordArray);
+			Stats       stats       = new Stats(columnsInfo, recordArray);
 			Correlation correlation = new Correlation(columnsInfo, recordArray);
 			correlation.writeToDisk();
-			// stats.writeToDisk();
+			stats.writeToDisk();
 			
 
 		} catch (FileNotFoundException e) {
