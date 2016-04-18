@@ -17,6 +17,7 @@ public class Correlation {
       attributeB  = new ArrayList<String>();
       correlation = new ArrayList<Double>();
       for (int i = 0; i < info.length; i++) {
+         System.out.println(info[i].getColumnName());
          for (int j = 0; j < info.length; j++) {
             attributeA.add(info[i].getColumnName());
             attributeB.add(info[j].getColumnName());
@@ -24,7 +25,7 @@ public class Correlation {
             if (info[i].isNominal() || info[j].isNominal()) {
                res = 0.0;
                for (String c : getDifferentValues(i, records)) {
-                  for (String r : getDifferentValues(i, records)) {
+                  for (String r : getDifferentValues(j, records)) {
                      double o = observedFrequencie(c, r, i, j, records);
                      double e = expectedFrequencie(c, r, i, j, records);
                      res += Math.pow(o-e, 2.0) / e;
@@ -36,12 +37,13 @@ public class Correlation {
                double meanB   = mean(j, records);
                double stdDevA = stdDev(i, meanA, records);
                double stdDevB = stdDev(j, meanB, records);
-               for (CSVRecord record : records) {
+               for (int k = 1; k < records.length; k++) {
+                  CSVRecord record = records[k];
                   double ai = getAsDouble(record.get(i));
                   double bi = getAsDouble(record.get(j));
-                  res += (ai*bi) - records.length*meanA*meanB;
+                  res += (ai-meanA)*(bi-meanB);
                }
-               res /= records.length*stdDevA*stdDevB;
+               res /= (records.length-1)*stdDevA*stdDevB;
             }
             correlation.add(new Double(res));
          }
@@ -65,10 +67,12 @@ public class Correlation {
    private ArrayList<String> getDifferentValues(int a, CSVRecord []records) {
       ArrayList<String> values = new ArrayList<String>();
       TreeSet<String> used = new TreeSet<String>();
-      for (CSVRecord record : records) {
-         if (!used.contains(record.get(a))) {
-            used.add(record.get(a));
-            values.add(record.get(a));
+      for (int i = 1; i < records.length; i++) {
+         CSVRecord record = records[i];
+         String str = record.get(a).trim();
+         if (!used.contains(str)) {
+            used.add(str);
+            values.add(str);
          }
       }
       return values;
@@ -78,18 +82,22 @@ public class Correlation {
          CSVRecord[] records) {
       int countA = 0;
       int countB = 0;
-      for (CSVRecord record : records) {
-         if (record.get(a).equals(c)) countA++;
-         if (record.get(b).equals(r)) countB++;
+      for (int i = 1; i < records.length; i++) {
+         CSVRecord record = records[i];
+         if (record.get(a).trim().equals(c)) countA++;
+         if (record.get(b).trim().equals(r)) countB++;
       }
-      return countA * countB / (double) records.length;
+      return ((double)countA * countB) / ((double)records.length-1);
    }
 
    private double observedFrequencie(String c, String r, int a, int b,
          CSVRecord[] records) {
       int count = 0;
-      for (CSVRecord record : records) {
-         if (record.get(a).equals(c) && record.get(b).equals(r)) count++;
+      for (int i = 1; i < records.length; i++) {
+         CSVRecord record = records[i];
+         String strA = record.get(a).trim();
+         String strB = record.get(b).trim();
+         if (strA.equals(c) && strB.equals(r)) count++;
       }
       return (double)count;
    }
@@ -97,21 +105,21 @@ public class Correlation {
    
    private double mean(int a, CSVRecord[] records) {
       double res = 0.0;
-      for (int i = 0; i < records.length; i++) {
+      for (int i = 1; i < records.length; i++) {
          double val = getAsDouble(records[i].get(a));
          res += val;
       }
-      res /= (double)records.length;
+      res /= ((double)records.length - 1.0);
       return res;
    }
    
    private double stdDev(int a, double mean, CSVRecord[] records) {
       double res = 0.0;
-      for (int i = 0; i < records.length; i++) {
+      for (int i = 1; i < records.length; i++) {
          double val = getAsDouble(records[i].get(a));
          res += Math.pow(val - mean, 2.0);
       }
-      res /= (double)records.length;
+      res /= ((double)records.length-1.0);
       res = Math.sqrt(res);
       return res;
    }
