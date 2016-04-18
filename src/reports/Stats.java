@@ -93,22 +93,17 @@ public class Stats {
 	private double getStdDev(ArrayList<Double> data,int i){
 		double temp = 0;
 		for(double a : data)
-			temp += (mean[i]-a)*(mean[i]-a);
+			temp += (a-mean[i])*(a-mean[i]);
 		return Math.sqrt(temp/data.size()) ;
 	}
 
 	private static double mode(ArrayList<Double> a) {
-		double maxValue=0, maxCount;
-		maxCount = a.size();
-		for (int i = 0; i < a.size(); ++i) {
-			int count = 0;
-			for (int j = 0; j < a.size(); ++j) {
-				if (a.get(j)== a.get(i)) ++count;
-			}
-			if (count > maxCount) {
-				maxCount = count;
-				maxValue = a.get(i);
-			}
+		double maxCount=0,maxValue=0;
+		for (int i = 0 ; i < a.size(); i++){
+		   if (Collections.frequency(a, a.get(i))> maxCount ){
+		      maxValue= a.get(i);
+		      maxCount=Collections.frequency(a, a.get(i));
+		   }
 		}
 
 		return maxValue;
@@ -161,7 +156,7 @@ public class Stats {
 					printer.println();
 					temp++;
 				}
-				printer.printRecord("-","-","-");
+				printer.printRecord("---","---","---");
 
 			}
 			printer.flush();

@@ -17,7 +17,6 @@ public class Correlation {
       attributeB  = new ArrayList<String>();
       correlation = new ArrayList<Double>();
       for (int i = 0; i < info.length; i++) {
-         System.out.println(info[i].getColumnName());
          for (int j = 0; j < info.length; j++) {
             attributeA.add(info[i].getColumnName());
             attributeB.add(info[j].getColumnName());

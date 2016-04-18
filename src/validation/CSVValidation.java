@@ -21,27 +21,16 @@ public class CSVValidation {
 			ConfigReader config = new ConfigReader("config.csv");
 			ColumnInfo[] columnsInfo = config.getColumns();
 			List<CSVRecord> values = parser.getRecords();
-			// validando las columnas
-			int errorCount = 0;
-			for (int i = 1; i < values.size(); i++) {
-			   CSVRecord csvRecord = values.get(i);
-			   for (int j = 0; j < csvRecord.size(); j++) {
-				    String value = csvRecord.get(j).trim();
-					if (!columnsInfo[j].validate(value)) {
-					   System.out.printf("Error %d %d: %s", i+1, j+1, value);
-					   System.out.println();
-					   errorCount++;
-					}
-                }
-			}
-			System.out.println("Error count: " + errorCount);
-			
 			CSVRecord[] recordArray = values.toArray(new CSVRecord[0]);
+			System.out.println("Generating statistics");
 			Stats       stats       = new Stats(columnsInfo, recordArray);
+			System.out.println("Calculating correlation values");
 			Correlation correlation = new Correlation(columnsInfo, recordArray);
-			correlation.writeToDisk();
+			System.out.println("Writing statistics to disk");
 			stats.writeToDisk();
-			
+			System.out.println("Writing correlation to disk");
+			correlation.writeToDisk();
+			System.out.println("Finished");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
