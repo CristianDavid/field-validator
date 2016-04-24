@@ -114,9 +114,13 @@ public class Stats {
 				CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)){
 			int temp=0;
 			for (int i = 0 ; i < information.length; i++) {
-				
+				printer.printRecord("---","---","---");
+				printer.printRecord(information[i].getColumnName());;
+				printer.printRecord("---","---","---");
 				if (information[i].isNumeric()){
 					List<String> lst = new ArrayList<String>();
+					
+					
 					printer.printRecord(FILE_HEADER_NUMERIC);
 					lst.add(information[i].getColumnName());
 					lst.add(String.valueOf(maximum[i]));
@@ -156,7 +160,7 @@ public class Stats {
 					printer.println();
 					temp++;
 				}
-				printer.printRecord("---","---","---");
+				
 
 			}
 			printer.flush();
