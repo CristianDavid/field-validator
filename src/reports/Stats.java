@@ -42,7 +42,6 @@ public class Stats {
 				for (int w = 1 ; w < records.length; w++){
 					String value =records[w].get(i).trim();
 					if (info[i].validate(value)){
-						//						System.out.println("+" + value + "+");
 						double number=Integer.parseInt(value); 
 						sum+=number;
 						numbers.add(number);			
@@ -54,6 +53,11 @@ public class Stats {
 				Collections.sort(numbers);
 				mode [i]= mode(numbers);
 				stdDeviation [i]= getStdDev(numbers,i);
+				information[i].setMin(minimum[i]);
+				information[i].setMode(mode[i]);
+				information[i].setMax(maximum[i]);
+				information[i].setMean(mean[i]);
+				information[i].setStdDeviation(stdDeviation[i]);
 			}
 			else{
 				ArrayList<String> errors = new ArrayList<String>();
@@ -68,7 +72,6 @@ public class Stats {
 					if (information[i].validate(value)){
 						if (!successes.contains(value)){
 							successes.add(value);
-//							System.out.println(i + value);
 						}
 					}
 					else{
@@ -100,10 +103,10 @@ public class Stats {
 	private static double mode(ArrayList<Double> a) {
 		double maxCount=0,maxValue=0;
 		for (int i = 0 ; i < a.size(); i++){
-		   if (Collections.frequency(a, a.get(i))> maxCount ){
-		      maxValue= a.get(i);
-		      maxCount=Collections.frequency(a, a.get(i));
-		   }
+			if (Collections.frequency(a, a.get(i))> maxCount ){
+				maxValue= a.get(i);
+				maxCount=Collections.frequency(a, a.get(i));
+			}
 		}
 
 		return maxValue;
@@ -119,8 +122,6 @@ public class Stats {
 				printer.printRecord("---","---","---");
 				if (information[i].isNumeric()){
 					List<String> lst = new ArrayList<String>();
-					
-					
 					printer.printRecord(FILE_HEADER_NUMERIC);
 					lst.add(information[i].getColumnName());
 					lst.add(String.valueOf(maximum[i]));
@@ -132,8 +133,6 @@ public class Stats {
 					printer.println();
 				}
 				else{
-
-					
 					printer.printRecord("SUCCESSES");
 					printer.printRecord(FILE_HEADER_NOMINAL);
 					for (int w = 0 ; w < listsOfSuccesses.get(temp).size(); w++){
@@ -160,8 +159,6 @@ public class Stats {
 					printer.println();
 					temp++;
 				}
-				
-
 			}
 			printer.flush();
 			printer.close();
