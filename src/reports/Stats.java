@@ -57,7 +57,7 @@ public class Stats {
 				numInfo.setMode(mode[i]);
 				numInfo.setMax(maximum[i]);
 				numInfo.setMean(mean[i]);
-				numInfo.setStdDeviation(stdDeviation[i]);
+				numInfo.setStandardDeviation(stdDeviation[i]);
 			}
 			else{
 				ArrayList<String> errors = new ArrayList<String>();
