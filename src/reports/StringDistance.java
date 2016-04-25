@@ -1,18 +1,59 @@
 package reports;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.ArrayList;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import validation.ColumnInfo;
+import validation.NominalColumnInfo;
 
 public class StringDistance {
+   private static class RecordInfo {
+      public String columnName;
+      public ArrayList<String>  values;
+      public ArrayList<String>  suggestions;
+      public ArrayList<Integer> distances;
+   }
+   
+   private ArrayList<RecordInfo> outputInfo;
+   
    public StringDistance(ColumnInfo[] info, CSVRecord[] records) {
+      for (int i = 0; i < info.length; i++) {
+         if (info[i] instanceof NominalColumnInfo) {
+            NominalColumnInfo nominalInfo = (NominalColumnInfo) info[i];
+            //for (int j = 1)
+            //for CSVRecord()
+         }
+      }
       String a = "kitten";
       String b = "sitting";
       Levenshtein dist = new Levenshtein(a, b);
       int d = dist.lev();
       System.out.printf("lev(%s,%s) = %d%n", a, b, d);
+   }
+   
+   public void writeToDisk(String filename) {
+      try (PrintWriter outFile = new PrintWriter(filename);
+            CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)) {
+         for (RecordInfo record : outputInfo) {
+            printer.printRecord(record.columnName);
+            printer.printRecord("Valor", "Sugerencia", "Distancia");
+            for (int i = 0; i < record.values.size(); i++) {
+               printer.printRecord(
+                     record.values.get(i),
+                     record.suggestions.get(i),
+                     record.distances.get(i));
+            }
+         }
+      } catch (IOException e) {
+         e.printStackTrace();
+         System.err.println(e.getMessage());
+      }
    }
    
    private static class Levenshtein {
