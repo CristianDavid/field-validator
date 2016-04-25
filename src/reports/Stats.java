@@ -132,7 +132,6 @@ public class Stats {
 	public void writeToDisk(String filename) {
 		try (PrintWriter outFile = new PrintWriter(filename);
 				CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)){
-			int temp=0;
 			for (int i = 0 ; i < information.length; i++) {
 				printer.printRecord("---","---","---");
 				printer.printRecord(information[i].getColumnName());;
@@ -174,7 +173,6 @@ public class Stats {
 						}
 					}
 					printer.println();
-					temp++;
 				}
 				else{
 					printer.printRecord("SUCCESSES");
@@ -205,7 +203,6 @@ public class Stats {
 						}
 					}
 					printer.println();
-					temp++;
 				}
 			}
 			printer.flush();
