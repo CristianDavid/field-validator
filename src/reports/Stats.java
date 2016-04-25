@@ -38,8 +38,8 @@ public class Stats {
 		nominalFrequencyRecords = new ArrayList<>();
 
 		for (int i = 0 ; i< info.length; i++){
-			numericFrequencyRecords.add(new ArrayList<>()); 
-			nominalFrequencyRecords.add(new ArrayList<>()); 
+			numericFrequencyRecords.add(new ArrayList<FrequencyRecord<Double>>()); 
+			nominalFrequencyRecords.add(new ArrayList<FrequencyRecord<String>>()); 
 			if (info[i] instanceof NumericColumnInfo){
 			    NumericColumnInfo numInfo = (NumericColumnInfo) info[i];
 				int sum=0;
