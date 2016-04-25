@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import validation.ColumnInfo;
-import validation.FieldValidator;
-import validation.NominalFieldValidator;
-import validation.NumericFieldValidator;
+import validation.NumericColumnInfo;
+import validation.NominalColumnInfo;
 import validation.RegexValidator;
 
 import org.apache.commons.csv.CSVFormat;
@@ -22,10 +21,10 @@ public class ConfigReader {
       try (FileReader inputFile = new FileReader(filename);
            CSVParser  parser    = new CSVParser(inputFile, CSVFormat.EXCEL)) {
          List<CSVRecord> records  = parser.getRecords();
-         FieldValidator validator = null;
-         String columnName        = null;
-         String columnType        = null;
-         String validatorInfo     = null;
+         ColumnInfo columnInfo;
+         String columnName;
+         String columnType;
+         String validatorInfo;
          for (CSVRecord record : records) {
             if (record.size() < 3) {
                String msg = "Row has less than 3 columns!";
@@ -39,19 +38,20 @@ public class ConfigReader {
                   String[] limits = validatorInfo.split(",");
                   int min         = Integer.parseInt(limits[0]);
                   int max         = Integer.parseInt(limits[1]);
-                  validator       = new NumericFieldValidator(min, max);
+                  columnInfo      = new NumericColumnInfo(columnName, min, max);
                   break;
                case "nominal":
                   String[] fields = validatorInfo.split(",");
-                  validator       = new NominalFieldValidator(fields);
+                  columnInfo      = new NominalColumnInfo(columnName, fields);
                   break;
                case "regex":
-                  validator = new RegexValidator(validatorInfo);
+                  columnInfo = new ColumnInfo(columnName,
+                                             new RegexValidator(validatorInfo));
                   break;
                default:
                   throw new IOException("Column type not supported.");
             }
-            columns.add(new ColumnInfo(columnName, validator));
+            columns.add(columnInfo);
          }
       } catch (FileNotFoundException e) {
          e.printStackTrace();

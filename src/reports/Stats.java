@@ -10,6 +10,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import validation.ColumnInfo;
+import validation.NumericColumnInfo;
 
 public class Stats {
 	private static final Object [] FILE_HEADER_NUMERIC = {"Name","Max","Min","Mode","Mean","Std Deviation"};
@@ -22,41 +23,41 @@ public class Stats {
 	ArrayList<ArrayList<Integer>> listsOfNumberOfErrors;
 	ColumnInfo information[];
 
-
 	public Stats(ColumnInfo[] info, CSVRecord[] records) {
-		information =info;
+		information = info;
 		maximum = new double [information.length];
-		minimum= new double [information.length];
-		mode = new double [information.length];
-		mean = new double [information.length];
+		minimum = new double [information.length];
+		mode    = new double [information.length];
+		mean    = new double [information.length];
 		stdDeviation = new double [information.length];
-		listsOfNumberOfErrors= new ArrayList<ArrayList<Integer>>();
-		listsOfNumberOfSuccesses= new ArrayList<ArrayList<Integer>>();
-		listsOfErrors = new ArrayList<ArrayList<String>>();
+		listsOfNumberOfErrors    = new ArrayList<ArrayList<Integer>>();
+		listsOfNumberOfSuccesses = new ArrayList<ArrayList<Integer>>();
+		listsOfErrors    = new ArrayList<ArrayList<String>>();
 		listsOfSuccesses = new ArrayList<ArrayList<String>>();
 		for (int i = 0 ; i< info.length; i++){
-			if (info[i].isNumeric()){
+			if (info[i] instanceof NumericColumnInfo){
+			    NumericColumnInfo numInfo = (NumericColumnInfo) info[i];
 				int sum=0;
 				ArrayList<Double> numbers = new ArrayList<>();
 				for (int w = 1 ; w < records.length; w++){
 					String value =records[w].get(i).trim();
-					if (info[i].validate(value)){
+					if (numInfo.validate(value)){
 						double number=Integer.parseInt(value); 
 						sum+=number;
 						numbers.add(number);			
 					}
 				}
-				mean[i] = sum/records.length;
-				maximum[i]=Collections.max(numbers);
+				mean[i]    = sum/records.length;
+				maximum[i] = Collections.max(numbers);
 				minimum[i] = Collections.min(numbers);
 				Collections.sort(numbers);
-				mode [i]= mode(numbers);
-				stdDeviation [i]= getStdDev(numbers,i);
-				information[i].setMin(minimum[i]);
-				information[i].setMode(mode[i]);
-				information[i].setMax(maximum[i]);
-				information[i].setMean(mean[i]);
-				information[i].setStdDeviation(stdDeviation[i]);
+				mode[i]    = mode(numbers);
+				stdDeviation[i] = getStdDev(numbers,i);
+				numInfo.setMin(minimum[i]);
+				numInfo.setMode(mode[i]);
+				numInfo.setMax(maximum[i]);
+				numInfo.setMean(mean[i]);
+				numInfo.setStdDeviation(stdDeviation[i]);
 			}
 			else{
 				ArrayList<String> errors = new ArrayList<String>();
@@ -119,7 +120,7 @@ public class Stats {
 				printer.printRecord("---","---","---");
 				printer.printRecord(information[i].getColumnName());;
 				printer.printRecord("---","---","---");
-				if (information[i].isNumeric()){
+				if (information[i] instanceof NumericColumnInfo){
 					List<String> lst = new ArrayList<String>();
 					printer.printRecord(FILE_HEADER_NUMERIC);
 					lst.add(information[i].getColumnName());
