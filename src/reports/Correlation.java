@@ -10,6 +10,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord; 
 
 import validation.ColumnInfo;
+import validation.NominalColumnInfo;
 
 public class Correlation {
    public Correlation(ColumnInfo[] info, CSVRecord[] records) {
@@ -21,7 +22,8 @@ public class Correlation {
             attributeA.add(info[i].getColumnName());
             attributeB.add(info[j].getColumnName());
             double res;
-            if (info[i].isNominal() || info[j].isNominal()) {
+            if (info[i] instanceof NominalColumnInfo ||
+                  info[j] instanceof NominalColumnInfo) {
                res = 0.0;
                for (String c : getDifferentValues(i, records)) {
                   for (String r : getDifferentValues(j, records)) {
