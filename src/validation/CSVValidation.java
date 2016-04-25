@@ -10,8 +10,9 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import configuration.ConfigReader;
-import reports.Stats;
 import reports.Correlation;
+import reports.Normalization;
+import reports.Stats;
 import reports.StringDistance;
 
 public class CSVValidation {
@@ -35,6 +36,9 @@ public class CSVValidation {
 			correlation.writeToDisk("correlation.csv");
 			System.out.println("Writing suggestions to disk");
 			distance.writeToDisk("Suggestions.csv");
+			System.out.println("Doing the normalization");
+			Normalization normalizer = new Normalization(columnsInfo, recordArray);
+			normalizer.writeToDisk("normalization.csv");
 			System.out.println("Finished");
 
 		} catch (FileNotFoundException e) {
