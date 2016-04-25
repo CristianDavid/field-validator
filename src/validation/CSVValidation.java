@@ -12,6 +12,7 @@ import org.apache.commons.csv.CSVRecord;
 import configuration.ConfigReader;
 import reports.Stats;
 import reports.Correlation;
+import reports.StringDistance;
 
 public class CSVValidation {
 	
@@ -26,10 +27,14 @@ public class CSVValidation {
 			Stats       stats       = new Stats(columnsInfo, recordArray);
 			System.out.println("Calculating correlation values");
 			Correlation correlation = new Correlation(columnsInfo, recordArray);
+			System.out.println("Generating suggestions");
+			StringDistance distance = new StringDistance(columnsInfo, recordArray);
 			System.out.println("Writing statistics to disk");
 			stats.writeToDisk("Stats.csv");
 			System.out.println("Writing correlation to disk");
 			correlation.writeToDisk("correlation.csv");
+			System.out.println("Writing suggestions to disk");
+			distance.writeToDisk("Suggestions.csv");
 			System.out.println("Finished");
 
 		} catch (FileNotFoundException e) {

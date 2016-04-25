@@ -14,6 +14,12 @@ import validation.NominalColumnInfo;
 
 public class StringDistance {
    private static class RecordInfo {
+      public RecordInfo() {
+         columnName  = "";
+         values      = new ArrayList<>(); // TODO Can I do this before java 8 
+         suggestions = new ArrayList<>();
+         distances   = new ArrayList<>();
+      }
       public String columnName;
       public ArrayList<String>  values;
       public ArrayList<String>  suggestions;
@@ -23,6 +29,7 @@ public class StringDistance {
    private ArrayList<RecordInfo> outputInfo;
    
    public StringDistance(ColumnInfo[] info, CSVRecord[] records) {
+      outputInfo = new ArrayList<>();
       for (int i = 0; i < info.length; i++) {
          if (info[i] instanceof NominalColumnInfo) {
             NominalColumnInfo nominalInfo = (NominalColumnInfo) info[i];
@@ -31,7 +38,7 @@ public class StringDistance {
             for (int j = 1; j < records.length; j++) {
                String value = records[j].get(i).trim();
                if (!nominalInfo.validate(value)) {
-                  int minDist = 0;
+                  int minDist = Integer.MAX_VALUE;
                   String bestSuggestion = "";
                   for (String suggestion : nominalInfo.getValueSet()) {
                      int dist = new Levenshtein(suggestion.trim(), value).lev();
@@ -48,11 +55,6 @@ public class StringDistance {
             outputInfo.add(recordInfo);
          }
       }
-      String a = "kitten";
-      String b = "sitting";
-      Levenshtein dist = new Levenshtein(a, b);
-      int d = dist.lev();
-      System.out.printf("lev(%s,%s) = %d%n", a, b, d);
    }
    
    public void writeToDisk(String filename) {
