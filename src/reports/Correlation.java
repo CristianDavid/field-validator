@@ -49,8 +49,8 @@ public class Correlation {
       }
    }
    
-   public void writeToDisk() {
-      try (PrintWriter outFile = new PrintWriter("correlation.csv");
+   public void writeToDisk(String filename) {
+      try (PrintWriter outFile = new PrintWriter(filename);
             CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)) {
          printer.printRecord("Atributo A", "Atributo B", "Correlacion");
          for (int i = 0; i < attributeA.size(); i++) {

@@ -27,9 +27,9 @@ public class CSVValidation {
 			System.out.println("Calculating correlation values");
 			Correlation correlation = new Correlation(columnsInfo, recordArray);
 			System.out.println("Writing statistics to disk");
-			stats.writeToDisk();
+			stats.writeToDisk("Stats.csv");
 			System.out.println("Writing correlation to disk");
-			correlation.writeToDisk();
+			correlation.writeToDisk("correlation.csv");
 			System.out.println("Finished");
 
 		} catch (FileNotFoundException e) {

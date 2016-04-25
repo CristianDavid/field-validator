@@ -14,8 +14,7 @@ import validation.ColumnInfo;
 public class Stats {
 	private static final Object [] FILE_HEADER_NUMERIC = {"Name","Max","Min","Mode","Mean","Std Deviation"};
 	private static final Object [] FILE_HEADER_NOMINAL = {"Name","Frequency"};
-	public static final String FILENAME = "Stats.csv";
-
+	
 	double  maximum [], minimum[],mode[],mean[],stdDeviation[];
 	ArrayList<ArrayList<String>> listsOfErrors;
 	ArrayList<ArrayList<String>> listsOfSuccesses;
@@ -112,8 +111,8 @@ public class Stats {
 		return maxValue;
 	}
 
-	public void writeToDisk() {
-		try (PrintWriter outFile = new PrintWriter(FILENAME);
+	public void writeToDisk(String filename) {
+		try (PrintWriter outFile = new PrintWriter(filename);
 				CSVPrinter printer = new CSVPrinter(outFile, CSVFormat.EXCEL)){
 			int temp=0;
 			for (int i = 0 ; i < information.length; i++) {
