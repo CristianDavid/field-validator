@@ -26,8 +26,26 @@ public class StringDistance {
       for (int i = 0; i < info.length; i++) {
          if (info[i] instanceof NominalColumnInfo) {
             NominalColumnInfo nominalInfo = (NominalColumnInfo) info[i];
-            //for (int j = 1)
-            //for CSVRecord()
+            RecordInfo recordInfo = new RecordInfo();
+            recordInfo.columnName = nominalInfo.getColumnName();
+            for (int j = 1; j < records.length; j++) {
+               String value = records[j].get(i).trim();
+               if (!nominalInfo.validate(value)) {
+                  int minDist = 0;
+                  String bestSuggestion = "";
+                  for (String suggestion : nominalInfo.getValueSet()) {
+                     int dist = new Levenshtein(suggestion.trim(), value).lev();
+                     if (dist < minDist) {
+                        minDist        = dist;
+                        bestSuggestion = suggestion;
+                     }
+                  }
+                  recordInfo.values.add(value);
+                  recordInfo.suggestions.add(bestSuggestion);
+                  recordInfo.distances.add(minDist);
+               }
+            }
+            outputInfo.add(recordInfo);
          }
       }
       String a = "kitten";
