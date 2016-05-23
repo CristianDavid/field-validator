@@ -2,7 +2,7 @@ package classify;
 
 import java.util.TreeMap;
 
-public class ZeroR {
+public class ZeroR implements Classifier {
    private String mostFrequentClass;
    
    public void train(String[][] trainingSet, int classIdx) {

@@ -2,7 +2,7 @@ package classify;
 
 import java.util.TreeMap;
 
-public class NaiveBayes {
+public class NaiveBayes implements Classifier {
    private double prA;
    private TreeMap<String, TreeMap<String, Integer>> freqTable;
    private TreeMap<String, Integer> classFreq;
@@ -16,7 +16,7 @@ public class NaiveBayes {
       this(1.0);
    }
    
-   void train(String[][] trainingSet, int classIdx) {
+   public void train(String[][] trainingSet, int classIdx) {
       String instanceClass;
       TreeMap<String, Integer> row;
       Integer freq;
@@ -46,7 +46,7 @@ public class NaiveBayes {
       }
    }
    
-   public String clasify(String[] instance) {
+   public String classify(String[] instance) {
       String[] classes = new String[classFreq.size()];
       int idxOfMax = -1;
       double maxPr = Double.NEGATIVE_INFINITY;
